@@ -217,7 +217,11 @@ endif (RR_USE_VULKAN)
 target_compile_features(RadeonRays PRIVATE cxx_std_14)
 
 if (UNIX AND NOT APPLE)
+    if(RR_USE_ARM)
+        target_compile_options(RadeonRays PUBLIC -fPIC)
+    else(RR_USE_ARM)
         target_compile_options(RadeonRays PUBLIC -msse4.2 -fPIC)
+    endif(RR_USE_ARM)
         target_link_libraries(RadeonRays INTERFACE "-Wl,--no-undefined")
         
         #read version from header
