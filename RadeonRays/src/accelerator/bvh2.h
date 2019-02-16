@@ -27,10 +27,13 @@ THE SOFTWARE.
 #include <vector>
 #include <thread>
 #include <condition_variable>
+#ifndef USE_ARM
 #include <mmintrin.h>
 #include <xmmintrin.h>
 #include <smmintrin.h>
-
+#else
+#include <arm_neon.h>
+#endif //USE_ARM
 #include "../primitive/mesh.h"
 #include "../primitive/instance.h"
 
