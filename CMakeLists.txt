@@ -14,6 +14,7 @@ option(RR_ENABLE_RAYMASK "Enable ray masking in intersection kernels" OFF)
 option(RR_ENABLE_BACKFACE_CULL "Enable backface culling in intersection kernels" OFF)
 #option(RR_TUTORIALS "Add tutorials projects" OFF)
 option(RR_SAFE_MATH "use safe math" OFF)
+option(RR_USE_ARM "Use ARM build OFF")
 mark_as_advanced(FORCE RR_USE_VULKAN)
 
 #global settings
@@ -67,4 +68,13 @@ if (NOT RR_NO_TESTS)
     add_subdirectory(UnitTest)
 endif (NOT RR_NO_TESTS)
 
+if (RR_USE_ARM)
+    if (${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
+	add_definitions(-DUSE_ARM=1)
+    else (${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
+	message("ARM not detected while USE_ARM flag used")
+	add_definitions(-DUSE_ARM=1)
+    endif (${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
+#   add_definition(-mfloat-abi=softfp -mfpu=neon)
+endif (RR_USE_ARM)
 
